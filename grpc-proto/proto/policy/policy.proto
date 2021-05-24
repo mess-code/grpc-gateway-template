@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package helloworld;
+package policy;
 
-option go_package = "grpc-gateway/proto/helloworld";
+option go_package = "grpc-gateway-template/grpc-proto/proto/policy";
 
 import "google/api/annotations.proto";
 
@@ -11,7 +11,7 @@ service Greeter {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply) {
     option (google.api.http) = {
-      get: "/v1/example/echo/{name}"
+      post: "/v1/example/echo/{name}"
       body: "*"
     };
   }
