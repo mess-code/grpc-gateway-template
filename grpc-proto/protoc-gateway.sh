@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mkdir -p gateway
 
 protoc -I ./proto \
