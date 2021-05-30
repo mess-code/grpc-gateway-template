@@ -193,7 +193,7 @@ func RegisterGreeterHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 }
 
 var (
-	pattern_Greeter_SayHello_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v1", "example", "echo", "name"}, ""))
+	pattern_Greeter_SayHello_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v2", "greeter", "echo", "name"}, ""))
 )
 
 var (

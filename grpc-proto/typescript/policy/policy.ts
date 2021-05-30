@@ -6,9 +6,9 @@ import {
   ChannelCredentials,
   ChannelOptions,
   UntypedServiceImplementation,
-  handleClientStreamingCall,
+  handleUnaryCall,
   Client,
-  ClientWritableStream,
+  ClientUnaryCall,
   Metadata,
   CallOptions,
   ServiceError,
@@ -115,7 +115,7 @@ export const PolicyService = {
   /** Sends a greeting */
   createPolicy: {
     path: "/policy.Policy/CreatePolicy",
-    requestStream: true,
+    requestStream: false,
     responseStream: false,
     requestSerialize: (value: CreatePolicyRequest) =>
       Buffer.from(CreatePolicyRequest.encode(value).finish()),
@@ -128,42 +128,35 @@ export const PolicyService = {
 
 export interface PolicyServer extends UntypedServiceImplementation {
   /** Sends a greeting */
-  createPolicy: handleClientStreamingCall<
-    CreatePolicyRequest,
-    CreatePolicyResponse
-  >;
+  createPolicy: handleUnaryCall<CreatePolicyRequest, CreatePolicyResponse>;
 }
 
 export interface PolicyClient extends Client {
   /** Sends a greeting */
   createPolicy(
+    request: CreatePolicyRequest,
     callback: (
       error: ServiceError | null,
       response: CreatePolicyResponse
     ) => void
-  ): ClientWritableStream<CreatePolicyRequest>;
+  ): ClientUnaryCall;
   createPolicy(
+    request: CreatePolicyRequest,
     metadata: Metadata,
     callback: (
       error: ServiceError | null,
       response: CreatePolicyResponse
     ) => void
-  ): ClientWritableStream<CreatePolicyRequest>;
+  ): ClientUnaryCall;
   createPolicy(
-    options: Partial<CallOptions>,
-    callback: (
-      error: ServiceError | null,
-      response: CreatePolicyResponse
-    ) => void
-  ): ClientWritableStream<CreatePolicyRequest>;
-  createPolicy(
+    request: CreatePolicyRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
     callback: (
       error: ServiceError | null,
       response: CreatePolicyResponse
     ) => void
-  ): ClientWritableStream<CreatePolicyRequest>;
+  ): ClientUnaryCall;
 }
 
 export const PolicyClient = makeGenericClientConstructor(

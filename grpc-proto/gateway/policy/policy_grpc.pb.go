@@ -14,88 +14,88 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// GreeterClient is the client API for Greeter service.
+// PolicyClient is the client API for Policy service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type GreeterClient interface {
+type PolicyClient interface {
 	// Sends a greeting
-	SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
+	CreatePolicy(ctx context.Context, in *CreatePolicyRequest, opts ...grpc.CallOption) (*CreatePolicyResponse, error)
 }
 
-type greeterClient struct {
+type policyClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewGreeterClient(cc grpc.ClientConnInterface) GreeterClient {
-	return &greeterClient{cc}
+func NewPolicyClient(cc grpc.ClientConnInterface) PolicyClient {
+	return &policyClient{cc}
 }
 
-func (c *greeterClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error) {
-	out := new(HelloReply)
-	err := c.cc.Invoke(ctx, "/policy.Greeter/SayHello", in, out, opts...)
+func (c *policyClient) CreatePolicy(ctx context.Context, in *CreatePolicyRequest, opts ...grpc.CallOption) (*CreatePolicyResponse, error) {
+	out := new(CreatePolicyResponse)
+	err := c.cc.Invoke(ctx, "/policy.Policy/CreatePolicy", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// GreeterServer is the server API for Greeter service.
-// All implementations must embed UnimplementedGreeterServer
+// PolicyServer is the server API for Policy service.
+// All implementations must embed UnimplementedPolicyServer
 // for forward compatibility
-type GreeterServer interface {
+type PolicyServer interface {
 	// Sends a greeting
-	SayHello(context.Context, *HelloRequest) (*HelloReply, error)
-	mustEmbedUnimplementedGreeterServer()
+	CreatePolicy(context.Context, *CreatePolicyRequest) (*CreatePolicyResponse, error)
+	mustEmbedUnimplementedPolicyServer()
 }
 
-// UnimplementedGreeterServer must be embedded to have forward compatible implementations.
-type UnimplementedGreeterServer struct {
+// UnimplementedPolicyServer must be embedded to have forward compatible implementations.
+type UnimplementedPolicyServer struct {
 }
 
-func (UnimplementedGreeterServer) SayHello(context.Context, *HelloRequest) (*HelloReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SayHello not implemented")
+func (UnimplementedPolicyServer) CreatePolicy(context.Context, *CreatePolicyRequest) (*CreatePolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePolicy not implemented")
 }
-func (UnimplementedGreeterServer) mustEmbedUnimplementedGreeterServer() {}
+func (UnimplementedPolicyServer) mustEmbedUnimplementedPolicyServer() {}
 
-// UnsafeGreeterServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to GreeterServer will
+// UnsafePolicyServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to PolicyServer will
 // result in compilation errors.
-type UnsafeGreeterServer interface {
-	mustEmbedUnimplementedGreeterServer()
+type UnsafePolicyServer interface {
+	mustEmbedUnimplementedPolicyServer()
 }
 
-func RegisterGreeterServer(s grpc.ServiceRegistrar, srv GreeterServer) {
-	s.RegisterService(&Greeter_ServiceDesc, srv)
+func RegisterPolicyServer(s grpc.ServiceRegistrar, srv PolicyServer) {
+	s.RegisterService(&Policy_ServiceDesc, srv)
 }
 
-func _Greeter_SayHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HelloRequest)
+func _Policy_CreatePolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePolicyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GreeterServer).SayHello(ctx, in)
+		return srv.(PolicyServer).CreatePolicy(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/policy.Greeter/SayHello",
+		FullMethod: "/policy.Policy/CreatePolicy",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreeterServer).SayHello(ctx, req.(*HelloRequest))
+		return srv.(PolicyServer).CreatePolicy(ctx, req.(*CreatePolicyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Greeter_ServiceDesc is the grpc.ServiceDesc for Greeter service.
+// Policy_ServiceDesc is the grpc.ServiceDesc for Policy service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Greeter_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "policy.Greeter",
-	HandlerType: (*GreeterServer)(nil),
+var Policy_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "policy.Policy",
+	HandlerType: (*PolicyServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SayHello",
-			Handler:    _Greeter_SayHello_Handler,
+			MethodName: "CreatePolicy",
+			Handler:    _Policy_CreatePolicy_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

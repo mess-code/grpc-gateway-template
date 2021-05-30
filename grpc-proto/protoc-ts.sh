@@ -1,3 +1,6 @@
+#!/bin/bash
+
+rm -rf ts
 mkdir -p ts
 
 ./node_modules/.bin/proto-loader-gen-types -I ./proto \

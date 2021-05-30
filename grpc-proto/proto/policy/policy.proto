@@ -9,7 +9,7 @@ import "google/api/annotations.proto";
 // Here is the overall greeting service definition where we define all our endpoints
 service Policy {
   // Sends a greeting
-  rpc CreatePolicy (stream CreatePolicyRequest) returns (CreatePolicyResponse) {
+  rpc CreatePolicy (CreatePolicyRequest) returns (CreatePolicyResponse) {
     option (google.api.http) = {
       post: "/v2/policy/echo/{name}"
       body: "*"

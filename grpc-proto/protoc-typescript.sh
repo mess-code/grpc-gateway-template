@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 rm -rf typescript
 mkdir -p typescript
